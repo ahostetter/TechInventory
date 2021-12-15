@@ -43,26 +43,49 @@ namespace Personal_Inventory.Controllers
             return View(inventory);
         }
 
-        // GET: Inventories/Create
         public IActionResult Create()
         {
-            return View();
+            //Populate DropDownList binding values
+            var model = new Inventory
+            {
+                ItemDesc = null,
+                BrandID = 0,
+                ListofCategories = _context.Category.Select(c => new SelectListItem
+                {
+                    Value = c.ID.ToString(),
+                    Text = c.CategoryName
+                }),
+                SubCategoryID = 0,
+                LocationID = 0,
+                DateEntered = DateTime.Now,
+                DateChanged = DateTime.Now,
+                DatePurchased = DateTime.Now,
+                Quantity = 0
+            };
+            return View(model);
         }
+
+
+        //// GET: Inventories/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Inventories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ItemDesc,BrandID,CategoryID,SubCategoryID,LocationID,DateEntered,DateChanged,DatePurchased,Quantity")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("ID,ItemDesc,BrandID,CategoryID,SubCategoryID,LocationID,DateEntered,DateChanged,DatePurchased,Quantity")] Inventory newInventory)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(inventory);
+                _context.Add(newInventory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(inventory);
+            return View(newInventory);
         }
 
         // GET: Inventories/Edit/5

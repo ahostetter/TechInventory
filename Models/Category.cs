@@ -1,4 +1,6 @@
-﻿namespace Personal_Inventory.Models
+﻿
+
+namespace Personal_Inventory.Models
 {
     public class Category
     {
