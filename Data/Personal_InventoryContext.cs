@@ -17,5 +17,6 @@ namespace Personal_Inventory.Data
         public DbSet<Personal_Inventory.Models.Inventory> Inventory { get; set; }
 
         public DbSet<Personal_Inventory.Models.Category> Category { get; set; }
+        public DbSet<Personal_Inventory.Models.InventoryView> InventoryView { get; set; }
     }
 }

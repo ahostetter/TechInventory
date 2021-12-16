@@ -10,11 +10,11 @@ using Personal_Inventory.Models;
 
 namespace Personal_Inventory.Controllers
 {
-    public class InventoriesController : Controller
+    public class InventoriesViewController : Controller
     {
         private readonly Personal_InventoryContext _context;
 
-        public InventoriesController(Personal_InventoryContext context)
+        public InventoriesViewController(Personal_InventoryContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace Personal_Inventory.Controllers
         // GET: Inventories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Inventory.ToListAsync());
+            return View(await _context.InventoryView.ToListAsync());
         }
 
         // GET: Inventories/Details/5
@@ -33,7 +33,7 @@ namespace Personal_Inventory.Controllers
                 return NotFound();
             }
 
-            var inventory = await _context.Inventory
+            var inventory = await _context.InventoryView
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (inventory == null)
             {
@@ -43,34 +43,11 @@ namespace Personal_Inventory.Controllers
             return View(inventory);
         }
 
+        // GET: Inventories/Create
         public IActionResult Create()
         {
-            //Populate DropDownList binding values
-            var model = new Inventory
-            {
-                ItemDesc = null,
-                BrandID = 0,
-                ListofCategories = _context.Category.Select(c => new SelectListItem
-                {
-                    Value = c.ID.ToString(),
-                    Text = c.CategoryName
-                }),
-                SubCategoryID = 0,
-                LocationID = 0,
-                DateEntered = DateTime.Now,
-                DateChanged = DateTime.Now,
-                DatePurchased = DateTime.Now,
-                Quantity = 0
-            };
-            return View(model);
+            return View();
         }
-
-
-        //// GET: Inventories/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
 
         // POST: Inventories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -83,7 +60,7 @@ namespace Personal_Inventory.Controllers
             {
                 _context.Add(newInventory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "InventoriesView");
+                return RedirectToAction(nameof(Index));
             }
             return View(newInventory);
         }
