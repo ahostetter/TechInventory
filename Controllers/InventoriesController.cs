@@ -49,7 +49,11 @@ namespace Personal_Inventory.Controllers
             var model = new Inventory
             {
                 ItemDesc = null,
-                BrandID = 0,
+                ListofBrands = _context.Brand.Select(c => new SelectListItem
+                {
+                    Value = c.ID.ToString(),
+                    Text = c.BrandName
+                }),
                 ListofCategories = _context.Category.Select(c => new SelectListItem
                 {
                     Value = c.ID.ToString(),

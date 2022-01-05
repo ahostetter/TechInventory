@@ -8,7 +8,8 @@ namespace Personal_Inventory.Models
     {
         public int ID { get; set; }
         public string? ItemDesc { get; set; }
-        public int BrandID { get; set; }
+        [Display(Name = "Brand")]
+        public string? BrandName { get; set; }
         [Display(Name = "Category")]
         public string? CategoryName { get; set; }
         public int SubCategoryID { get; set; }

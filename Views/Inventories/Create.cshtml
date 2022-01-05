@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="BrandID" class="control-label"></label>
-                <input asp-for="BrandID" class="form-control" />
+                <br />
+                <select asp-for="BrandID" asp-items="Model.ListofBrands"></select> 
                 <span asp-validation-for="BrandID" class="text-danger"></span>
             </div>
             <div class="form-group">

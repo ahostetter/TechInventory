@@ -8,6 +8,7 @@ namespace Personal_Inventory.Models
     {
         public int ID { get; set; }
         public string ItemDesc { get; set; }
+        [Display(Name = "Brand")]
         public int BrandID { get; set; }
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
@@ -22,6 +23,8 @@ namespace Personal_Inventory.Models
         public DateTime DatePurchased { get; set; }
         public float Quantity { get; set; }
         [NotMapped]
-        public IEnumerable<SelectListItem>? ListofCategories { get; set; }   
+        public IEnumerable<SelectListItem>? ListofCategories { get; set; }
+        [NotMapped]
+        public IEnumerable<SelectListItem>? ListofBrands { get; set; }
     }
 }
