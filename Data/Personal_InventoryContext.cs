@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +21,8 @@ namespace Personal_Inventory.Data
         public DbSet<Personal_Inventory.Models.InventoryView> InventoryView { get; set; }
 
         public DbSet<Personal_Inventory.Models.Brand> Brand { get; set; }
+
+        public DbSet<Personal_Inventory.Models.SubCategory> SubCategory { get; set; }
 
     }
 }
