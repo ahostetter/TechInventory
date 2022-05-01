@@ -59,7 +59,13 @@ namespace Personal_Inventory.Controllers
                     Value = c.ID.ToString(),
                     Text = c.CategoryName
                 }),
-                SubCategoryID = 0,
+                //Needs to connect to selected Category by user: 1 is just a test.
+                ListofSubCategories = _context.SubCategory.Where(x => x.CategoryId == 1).Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.SubCategoryName
+                }),
+                //SubCategoryID = 0,
                 LocationID = 0,
                 DateEntered = DateTime.Now,
                 DateChanged = DateTime.Now,

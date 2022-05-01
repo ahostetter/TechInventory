@@ -12,6 +12,7 @@ namespace Personal_Inventory.Models
         public int BrandID { get; set; }
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
+        [Display(Name = "Sub-Category")]
         public int SubCategoryID { get; set; }
         public int LocationID { get; set; }
 
@@ -26,5 +27,7 @@ namespace Personal_Inventory.Models
         public IEnumerable<SelectListItem>? ListofCategories { get; set; }
         [NotMapped]
         public IEnumerable<SelectListItem>? ListofBrands { get; set; }
+        [NotMapped]
+        public IEnumerable<SelectListItem>? ListofSubCategories { get; set; }
     }
 }
