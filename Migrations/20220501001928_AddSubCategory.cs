@@ -8,15 +8,6 @@ namespace Personal_Inventory.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "BrandID",
-                table: "InventoryView");
-
-            migrationBuilder.AddColumn<string>(
-                name: "BrandName",
-                table: "InventoryView",
-                type: "nvarchar(max)",
-                nullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "ItemDesc",
@@ -61,17 +52,6 @@ namespace Personal_Inventory.Migrations
         {
             migrationBuilder.DropTable(
                 name: "SubCategory");
-
-            migrationBuilder.DropColumn(
-                name: "BrandName",
-                table: "InventoryView");
-
-            migrationBuilder.AddColumn<int>(
-                name: "BrandID",
-                table: "InventoryView",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
 
             migrationBuilder.AlterColumn<string>(
                 name: "ItemDesc",
