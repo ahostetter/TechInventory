@@ -20,19 +20,17 @@
             <div class="form-group">
                 <label asp-for="BrandID" class="control-label"></label>
                 <br />
-                <select asp-for="BrandID" asp-items="Model.ListofBrands"></select> 
+                <select asp-for="BrandID" asp-items="Model.ListofBrands"><option disabled selected>--- SELECT ---</option></select>
                 <span asp-validation-for="BrandID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CategoryID" class="control-label"></label>
-                <br />
-                <select asp-for="CategoryID" asp-items="Model.ListofCategories"></select> 
+            <div>
+                <label asp-for="CategoryID"></label>
+                <select asp-for="CategoryID" asp-items="Model.ListofCategories" class="form-control" id="category-target"><option disabled selected>--- SELECT ---</option></select>
                 <span asp-validation-for="CategoryID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SubCategoryID" class="control-label"></label>
-                <br />
-                <select asp-for="SubCategoryID" asp-items="Model.ListofSubCategories"></select> 
+            <div>
+                <label asp-for="SubCategoryID"></label>
+                <select asp-for="SubCategoryID" asp-items="Model.ListofSubCategories" class="form-control" id="subCategory-target"><option disabled selected>--- SELECT ---</option></select>
                 <span asp-validation-for="SubCategoryID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -72,5 +70,33 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+
+    <script>
+        $(document).ready(function () {
+          $("#category-target").on("change", function () {
+            $list = $("#subCategory-target");
+            $.ajax({
+                url: "/Inventories/getSubCategories",
+                type: "GET",
+                data: { id: $("#category-target").val() }, //id of the category which is used to extract subcategory
+                traditional: true,
+                success: function (result) {
+                    $list.empty();
+                    $.each(result, function (i, item) {
+                        $list.append('<option value="' + item["id"] + '"> ' + item["subCategoryName"] + ' </option>');
+                        console.log(item)
+                    });
+                },
+                error: function () {
+                    alert("Something went wrong call the police");
+                }
+            });
+          });
+        });
+    </script>
+}
+
+

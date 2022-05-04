@@ -43,44 +43,70 @@ namespace Personal_Inventory.Controllers
             return View(inventory);
         }
 
+        //public IActionResult Create()
+        //{
+        //    //Populate DropDownList binding values
+        //    var model = new Inventory
+        //    {
+        //        ItemDesc = null,
+        //        ListofBrands = _context.Brand.Select(c => new SelectListItem
+        //        {
+        //            Value = c.ID.ToString(),
+        //            Text = c.BrandName
+        //        }),
+        //        ListofCategories = _context.Category.Select(c => new SelectListItem
+        //        {
+        //            Value = c.ID.ToString(),
+        //            Text = c.CategoryName
+        //        }),
+        //        //Needs to connect to selected Category by user: 1 is just a test. .Where(x => x.CategoryId == 1)
+        //        ListofSubCategories = _context.SubCategory.Select(c => new SelectListItem
+        //        {
+        //            Value = c.Id.ToString(),
+        //            Text = c.SubCategoryName
+        //        }),
+        //        LocationID = 0,
+        //        DateEntered = DateTime.Now,
+        //        DateChanged = DateTime.Now,
+        //        DatePurchased = DateTime.Now,
+        //        Quantity = 0
+        //    };
+        //    return View(model);
+        //}
+
         public IActionResult Create()
         {
-            //Populate DropDownList binding values
-            var model = new Inventory
+            var brands = new SelectList(_context.Brand.ToList(), "ID", "BrandName");
+            var categories = new SelectList(_context.Category.ToList(), "ID", "CategoryName");
+            var subCategories = new SelectList(_context.SubCategory.ToList(), "Id", "SubCategoryName");
+
+            var viewModel = new Inventory
             {
                 ItemDesc = null,
-                ListofBrands = _context.Brand.Select(c => new SelectListItem
-                {
-                    Value = c.ID.ToString(),
-                    Text = c.BrandName
-                }),
-                ListofCategories = _context.Category.Select(c => new SelectListItem
-                {
-                    Value = c.ID.ToString(),
-                    Text = c.CategoryName
-                }),
-                //Needs to connect to selected Category by user: 1 is just a test.
-                ListofSubCategories = _context.SubCategory.Where(x => x.CategoryId == 1).Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.SubCategoryName
-                }),
-                //SubCategoryID = 0,
+                ListofBrands = brands,
+                ListofCategories = categories,
+                ListofSubCategories = subCategories,
                 LocationID = 0,
                 DateEntered = DateTime.Now,
                 DateChanged = DateTime.Now,
                 DatePurchased = DateTime.Now,
                 Quantity = 0
             };
-            return View(model);
+
+            return View(viewModel);
         }
 
+        public IActionResult getSubCategories(int id)
+        {
+            var subCategories = new List<SubCategory>();
+            subCategories = getSubCategoriesFromDatabaseByCategoryID(id); //call repository
+            return Json(subCategories);
+        }
 
-        //// GET: Inventories/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        public List<SubCategory> getSubCategoriesFromDatabaseByCategoryID(int id)
+        {
+            return _context.SubCategory.Where(c => c.CategoryId == id).ToList();
+        }
 
         // POST: Inventories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -98,8 +124,8 @@ namespace Personal_Inventory.Controllers
             return View(newInventory);
         }
 
-        // GET: Inventories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+    // GET: Inventories/Edit/5
+    public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
