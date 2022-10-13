@@ -47,7 +47,14 @@ namespace Personal_Inventory
         // GET: SubCategories/Create
         public IActionResult Create()
         {
-            return View();
+            var categories = new SelectList(_context.Category.ToList(), "ID", "CategoryName");
+
+            var viewModel = new SubCategory
+            {
+                ListofCategories = categories,
+            };
+
+            return View(viewModel);
         }
 
         // POST: SubCategories/Create

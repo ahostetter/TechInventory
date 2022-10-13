@@ -12,7 +12,8 @@ namespace Personal_Inventory.Models
         public string? BrandName { get; set; }
         [Display(Name = "Category")]
         public string? CategoryName { get; set; }
-        public int SubCategoryID { get; set; }
+        [Display(Name = "Sub-Category")]
+        public string? SubCategoryName { get; set; }
         public int LocationID { get; set; }
 
         [DataType(DataType.Date)]

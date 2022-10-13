@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Personal_Inventory.Data;
 
@@ -11,9 +12,10 @@ using Personal_Inventory.Data;
 namespace Personal_Inventory.Migrations
 {
     [DbContext(typeof(Personal_InventoryContext))]
-    partial class Personal_InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20221012234501_InventoryViewchange")]
+    partial class InventoryViewchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
