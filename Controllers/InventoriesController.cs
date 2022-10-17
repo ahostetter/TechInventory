@@ -119,7 +119,7 @@ namespace Personal_Inventory.Controllers
             {
                 _context.Add(newInventory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "InventoriesView");
+                return RedirectToAction("Index", "Inventories");
             }
             return View(newInventory);
         }
